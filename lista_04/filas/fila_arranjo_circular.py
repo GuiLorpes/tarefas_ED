@@ -6,7 +6,7 @@ class Fila:
     é o primeiro a ser removido.
 
     Exemplos
-    >>> f = Fila()
+    >>> f = Fila(60)
     >>> f.vazia()
     True
     >>> f.enfileira('Amanda')
@@ -143,3 +143,4 @@ class Fila:
         20
         '''
         return self.inicio + self.fim
+
