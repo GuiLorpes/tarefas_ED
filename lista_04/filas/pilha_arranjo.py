@@ -29,7 +29,7 @@ class Pilha:
     # O índice do elemento que está no topo da pilha,
     # -1 se a pilha está vazia.
     topo: int
-    capa: int
+    capacidade: int
 
     def __init__(self, c: int) -> None:
         '''
@@ -38,7 +38,7 @@ class Pilha:
         '''
         self.valores = array(c, '')
         self.topo = -1
-        self.capa = c
+        self.capacidade = c
 
     def empilha(self, item: str):
         '''
@@ -115,7 +115,7 @@ class Pilha:
         >>> p.cheia()
         True
         '''
-        return self.topo == self.capa - 1
+        return self.topo == self.capacidade - 1
     
     def esvazia(self):
         '''
@@ -133,6 +133,3 @@ class Pilha:
         True
         '''
         self.topo = -1
-
-    def capacidade(self) -> int:
-        return self.capa

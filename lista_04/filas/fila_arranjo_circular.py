@@ -1,8 +1,5 @@
 from ed import array
 
-CAPACIDADE = 5000
-
-
 class Fila:
     '''
     Uma coleção de strings que segue a política FIFO: o primeiro a ser inserido
@@ -35,6 +32,8 @@ class Fila:
     # Indíce do primeiro elemento da fila
     inicio: int
 
+    capa: int
+
     # O valor para o inicio e o fim são incrementados até chegarem em
     # CAPACIDADE, quando voltam a ser 0.
     #
@@ -44,25 +43,25 @@ class Fila:
     # cheia e fila vazia. Para honrar o valor de CAPACIDADE, inicializamos
     # *valores* com CAPACIDADE + 1 itens.
 
-    def __init__(self) -> None:
+    def __init__(self, c: int) -> None:
         '''
-        Cria uma nova fila com capacidade para armazenar *CAPACIDADE*
-        elementos.
+        Cria uma nova fila com capacidade para armazenar *c* elementos.
         '''
-        self.valores = array(CAPACIDADE + 1, '')
+        self.valores = array(c + 1, '')
         self.inicio = 0
         self.fim = 0
+        self.capa = c
 
     def enfileira(self, item: str):
         '''
         Adiciona *item* no final da fila.
 
         Requer que a quantidade de elementos na fila seja menor que
-        *CAPACIDADE*.
+        a capacidade da fila.
 
         Exemplos
-        >>> f = Fila()
-        >>> for i in range(CAPACIDADE):
+        >>> f = Fila(60)
+        >>> for i in range(60):
         ...     f.enfileira(str(i))
         >>> f.enfileira('a')
         Traceback (most recent call last):
@@ -88,7 +87,7 @@ class Fila:
         Requer que a fila não esteja vazia.
 
         Exemplos
-        >>> f = Fila()
+        >>> f = Fila(60)
         >>> f.desenfileira()
         Traceback (most recent call last):
         ...
@@ -113,7 +112,7 @@ class Fila:
         Devolve True se a fila está vazia, False caso contrário.
 
         Exemplos
-        >>> f = Fila()
+        >>> f = Fila(60)
         >>> f.vazia()
         True
         >>> f.enfileira('Jorge')
@@ -125,8 +124,22 @@ class Fila:
     def cheia(self) -> bool:
         '''
         Devolve True se a fila está cheia, isto é, a quantidade de elementos na
-        fila é igual a *CAPACIDADE*, False caso contrário.
+        fila é igual a c, False caso contrário.
         '''
         # O próximo índice para o fim é igual ao início?
         return self.fim + 1 == self.inicio or \
             self.fim == len(self.valores) - 1 and self.inicio == 0
+    
+    def capacidade(self) -> int:
+        return self.capa
+    
+    def tamanho(self) -> int:
+        ''' 
+        Retorna o tamanho da lista
+        >>> f = Fila(500)
+        >>> for i in range (20):
+        ...     f.enfileira('a')
+        >>> f.tamanho()
+        20
+        '''
+        return self.inicio + self.fim

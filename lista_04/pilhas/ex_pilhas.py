@@ -50,7 +50,7 @@ def removeVazios(p: Pilha):
     >>> p.desempilha()
     'b'
     '''
-    n = p.capacidade
+    n = p.capacidade()
     p_aux = Pilha(n)
     while not p.vazia():
         i = p.desempilha()
@@ -71,7 +71,7 @@ def invertePilha(p: Pilha):
     >>> p.desempilha()
     'a'
     '''
-    n = p.capacidade
+    n = p.capacidade()
     p_aux = Pilha(n)
     p_aux2 = Pilha(n)
     while not p.vazia():
@@ -98,8 +98,8 @@ def notacao_posfixa(equacao: Pilha) -> float:
     '''
     invertePilha(equacao)
     resultado = float(equacao.desempilha())
-    pilha_aux = Pilha(equacao.capacidade)
-    pilha_ops = Pilha(equacao.capacidade)
+    pilha_aux = Pilha(equacao.capacidade())
+    pilha_ops = Pilha(equacao.capacidade())
     while not equacao.vazia():
         p = equacao.desempilha()
         if p == '+' or p == '-' or p == '*' or p == '/':
@@ -120,14 +120,3 @@ def notacao_posfixa(equacao: Pilha) -> float:
         if p1 == '/':
             resultado /= float(p2)
     return resultado
-
-    
-p = Pilha(100)
-p.empilha('50')
-p.empilha('10')
-p.empilha('-')
-p.empilha('5.0')
-p.empilha('*')
-p.empilha('20')
-p.empilha('/')
-notacao_posfixa(p)
