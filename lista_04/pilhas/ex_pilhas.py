@@ -80,3 +80,54 @@ def invertePilha(p: Pilha):
         p_aux2.empilha(p_aux.desempilha())
     while not p_aux2.vazia():
         p.empilha(p_aux2.desempilha())
+
+def notacao_posfixa(equacao: Pilha) -> float:
+    '''
+    Faz as operações da *equacao* de forma posfixa (55 8 + = 63)
+    Exemplos
+    >>> p = Pilha(100)
+    >>> p.empilha('50')
+    >>> p.empilha('10')
+    >>> p.empilha('-')
+    >>> p.empilha('5.0')
+    >>> p.empilha('*')
+    >>> p.empilha('20')
+    >>> p.empilha('/')
+    >>> notacao_posfixa(p)
+    10.0
+    '''
+    invertePilha(equacao)
+    resultado = float(equacao.desempilha())
+    pilha_aux = Pilha(equacao.capacidade)
+    pilha_ops = Pilha(equacao.capacidade)
+    while not equacao.vazia():
+        p = equacao.desempilha()
+        if p == '+' or p == '-' or p == '*' or p == '/':
+            pilha_ops.empilha(p)
+        else:
+            pilha_aux.empilha(p)
+    while not pilha_ops.vazia() and not pilha_aux.vazia():
+        invertePilha(pilha_aux)
+        invertePilha(pilha_ops)
+        p1 = pilha_ops.desempilha()
+        p2 = pilha_aux.desempilha()
+        if p1 == '+':
+            resultado += float(p2)
+        if p1 == '-':
+            resultado -= float(p2)
+        if p1 == '*':
+            resultado *= float(p2)
+        if p1 == '/':
+            resultado /= float(p2)
+    return resultado
+
+    
+p = Pilha(100)
+p.empilha('50')
+p.empilha('10')
+p.empilha('-')
+p.empilha('5.0')
+p.empilha('*')
+p.empilha('20')
+p.empilha('/')
+notacao_posfixa(p)
