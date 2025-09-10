@@ -20,4 +20,3 @@ def inverte_fila(fila: Fila):
     while not pilha_aux.vazia():
         p = pilha_aux.desempilha()
         fila.enfileira(p)
-

@@ -75,7 +75,7 @@ class Fila:
         if self.cheia():
             raise ValueError('fila cheia')
         self.valores[self.fim] = item
-        if self.fim == len(self.valores) - 1:
+        if self.fim == self.capa:
             self.fim = 0
         else:
             self.fim += 1
@@ -101,7 +101,7 @@ class Fila:
         if self.vazia():
             raise ValueError('fila vazia')
         item = self.valores[self.inicio]
-        if self.inicio == len(self.valores) - 1:
+        if self.inicio == self.capa:
             self.inicio = 0
         else:
             self.inicio += 1
@@ -128,14 +128,21 @@ class Fila:
         '''
         # O próximo índice para o fim é igual ao início?
         return self.fim + 1 == self.inicio or \
-            self.fim == len(self.valores) - 1 and self.inicio == 0
+            self.fim == self.capa and self.inicio == 0
     
     def capacidade(self) -> int:
+        '''
+        Retorna a capacidade da fila
+        Exemplo
+        >>> f = Fila(100)
+        >>> f.capacidade()
+        100
+        '''
         return self.capa
     
     def tamanho(self) -> int:
         ''' 
-        Retorna o tamanho da lista
+        Retorna o tamanho da fila
         >>> f = Fila(500)
         >>> for i in range (20):
         ...     f.enfileira('a')
@@ -144,3 +151,19 @@ class Fila:
         '''
         return self.inicio + self.fim
 
+    def esvazia(self):
+        '''
+        Esvazia a fila com tempo constante
+        Exemplo
+        >>> f = Fila(60)
+        >>> for i in range(20):
+        ...     f.enfileira(str(i))
+        >>> f.vazia()
+        False
+        >>> f.esvazia()
+        >>> f.vazia()
+        True
+        '''
+        self.inicio = self.fim
+
+    # Implementar um metodo do ex.15 letra D
