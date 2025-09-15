@@ -5,7 +5,7 @@ class Fila:
     é o primeiro a ser removido.
 
     Exemplos
-    >>> f = Fila()
+    >>> f = Fila(60)
     >>> f.vazia()
     True
     >>> f.enfileira('Amanda')
@@ -37,8 +37,21 @@ class Fila:
         '''
         Adiciona *item* no final da fila.
         >>> f = Fila(60)
+        >>> f.vazia()
+        True
+        >>> f.enfileira('a')
+        >>> f.enfileira('b')
+        >>> f.enfileira('c')
+        >>> f.desenfileira()
+        'a'
         '''
-        raise NotImplementedError
+        if self.pilha1.vazia() and self.pilha2.vazia():
+            self.pilha1.empilha(item)
+        else:
+            while not self.pilha2.vazia():
+                p = self.pilha2.desempilha()
+                self.pilha1.empilha(p)
+            self.pilha1.empilha(item)
 
     def desenfileira(self) -> str:
         '''
@@ -46,10 +59,16 @@ class Fila:
 
         Requer que a fila não esteja vazia.
         '''
-        raise NotImplementedError
+        if self.pilha1.vazia() and self.pilha2.vazia():
+            raise ValueError ('Fila vazia')
+        else:
+            while not self.pilha1.vazia():
+                p = self.pilha1.desempilha()
+                self.pilha2.empilha(p)
+        return self.pilha2.desempilha()
 
     def vazia(self) -> bool:
         '''
         Devolve True se a fila está vazia, False caso contrário.
         '''
-        raise NotImplementedError
+        return self.pilha1.vazia() and self.pilha2.vazia()
