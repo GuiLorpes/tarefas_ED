@@ -1,0 +1,13 @@
+1) Qual é utilidade do None?
+    O None serve como uma rede de segurança, para que mesmo que houver algum 
+    erro de operação no codigo - como uma idade invalida - gerar um aviso a 
+    quem esta implementando, e corrigir qualquer inconsistencia no codigo
+
+2) O que é uma autorreferência na definição de um tipo de dado?
+    É quando um tipo de dado referencia a outro do mesmo tipo como um dos 
+    argumentos dele
+
+3) Qual é a utilidade de um tipo de dado com autorreferência?
+    Permite que possamos listar itens sem depender de um array de tamanho fixo, 
+    ou ter que variar o tamanho de outro para adicionar itens, pois não possui 
+    um tamanho fixo. (acho q ta certo kkkkk) 

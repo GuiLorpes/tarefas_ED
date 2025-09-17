@@ -56,14 +56,25 @@ class FilaDupla:
         ''' Adiciona um *item* no começo da fila '''
         if self.cheia():
             raise ValueError('Fila cheia!')
+        if self.inicio == 0:
+            self.itens[self.capacidade] = item
+            self.inicio = self.capacidade
+        else:
+            self.itens[self.inicio] = item
         self.tamanho += 1
-        self.fim += 1
+        self.inicio -= 1
 
     def popRight(self) -> str:
         ''' Remove o ultimo item da fila '''
-        raise NotImplementedError
+        if self.vazia():
+            raise ValueError('Fila vazia!')
+        item = self.itens[self.fim]
+        if self.fim == 0:
+            self.fim = self.capacidade
+        else:
+            self.fim -= 1
         self.tamanho -= 1
-        self.fim -= 1
+        return item
 
     def popLeft(self) -> str:
         ''' Remove o primeiro item da fila '''
@@ -77,8 +88,8 @@ class FilaDupla:
     
     def cheia(self) -> bool:
         ''' Verifica se a fila dupla está cheia '''
-        raise NotImplementedError
-    
+        return self.fim + 1 == self.inicio or \
+            self.fim == self.capacidade and self.inicio == 0    
     def len(self) -> int:
         ''' Retorna a quantia de itens da fila '''
         return self.tamanho
