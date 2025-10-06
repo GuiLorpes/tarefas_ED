@@ -11,17 +11,18 @@ p = Node(7, None)
 p.prox = Node(1, None)
 p.prox.prox = Node(2, None)
 
-def transforma_list_em_no(lst: list[int]) -> Node:
+def transforma_list_em_no(lst: list[int]) -> Node | None:
     '''
     Transforma uma lista em um encadeamento com ordem contrária
     Exemplos
     >>> transforma_list_em_no([1,2,3,4])
     Node(item=4, prox=Node(item=3, prox=Node(item=2, prox=Node(item=1, prox=None))))
+    >>> transforma_list_em_no([]) is None
+    True
     '''
-    p = Node(lst[0], None)
-    for i in range (1, len(lst)):
-        q = Node(lst[i], p)
-        p = q
+    p: Node | None = None
+    for n in lst:
+        p = Node(n, p)
     return p 
 
 def elementos_em_no(p: Node | None) -> int:
@@ -167,12 +168,10 @@ def copia(p: Node | None) -> Node | None:
         copia = Node(p.item, None)
         q = p
         c = copia
-        n = 1
         while q.prox is not None:
             c.prox = Node(q.prox.item, None)
             q = q.prox
             c = c.prox
-            n += 1
     return copia
 
 def duplica_nos(p: Node | None):
@@ -192,4 +191,12 @@ def duplica_nos(p: Node | None):
     >>> p.prox.item
     1
     '''
-    return
+    if p is None:
+        raise ValueError('não foi possivel duplicar pois não há elementos')
+    else:
+        q = p
+        while q is not None:
+            i = Node(q.item, q.prox)
+            q.prox = i
+            q = i.prox
+
