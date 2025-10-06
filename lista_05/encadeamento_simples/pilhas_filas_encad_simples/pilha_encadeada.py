@@ -3,10 +3,10 @@ from dataclasses import dataclass
 
 
 @dataclass
-class No:
+class Node:
     '''Um nó em um encadeamento'''
     item: str
-    prox: No | None
+    prox: Node | None
 
 
 class Pilha:
@@ -17,6 +17,8 @@ class Pilha:
     >>> p = Pilha()
     >>> p.vazia()
     True
+    >>> p.desempilha()
+    'None'
     >>> p.empilha('O')
     >>> p.empilha('que')
     >>> p.empilha('escrever?')
@@ -26,12 +28,13 @@ class Pilha:
     'escrever?'
     >>> p.empilha('fazer')
     >>> p.empilha('agora?')
+    >>> p.inverte()
     >>> while not p.vazia():
     ...     p.desempilha()
-    'agora?'
-    'fazer'
-    'que'
     'O'
+    'que'
+    'fazer'
+    'agora?'
     '''
 
     topo: No | None
@@ -55,13 +58,20 @@ class Pilha:
         Requer que a pilha não esteja vazia.
         '''
         if self.topo is None:
-            raise ValueError('pilha vazia')
-        item = self.topo.item
-        self.topo = self.topo.prox
-        return item
+            i = 'None'
+        else:
+            i = self.topo.item
+            self.topo = self.topo.prox
+        return i
 
     def vazia(self) -> bool:
         '''
         Devolve True se a pilha está vazia, False caso contrário.
         '''
         return self.topo is None
+    
+    def inverte(self) -> None:
+        '''
+        Inverte a ordem dos elementos da pilha
+        '''
+        raise NotImplementedError

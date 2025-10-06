@@ -1,4 +1,4 @@
-from pilha_arranjo import Pilha
+from pilha_encadeada import Pilha
 
 def grupos_corretos(expr: str) -> bool:
     '''
