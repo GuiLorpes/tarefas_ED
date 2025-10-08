@@ -37,7 +37,7 @@ class Pilha:
     'agora?'
     '''
 
-    topo: No | None
+    topo: Node | None
 
     def __init__(self) -> None:
         '''
@@ -49,16 +49,16 @@ class Pilha:
         '''
         Adiciona o *item* na pilha.
         '''
-        self.topo = No(item, self.topo)
+        self.topo = Node(item, self.topo)
 
-    def desempilha(self) -> str:
+    def desempilha(self) -> str | None:
         '''
         Devolve o elemento mais recentemente adicionado da pilha.
 
         Requer que a pilha não esteja vazia.
         '''
         if self.topo is None:
-            i = 'None'
+            i = None
         else:
             i = self.topo.item
             self.topo = self.topo.prox
@@ -74,4 +74,14 @@ class Pilha:
         '''
         Inverte a ordem dos elementos da pilha
         '''
-        raise NotImplementedError
+        aux = Pilha()
+        aux2 = Pilha()
+        while not self.vazia():
+            i = self.desempilha()
+            aux.empilha(i)
+        while not aux.vazia():
+            i = aux.desempilha()
+            aux2.empilha(i)
+        while not aux2.vazia():
+            i = aux2.desempilha()
+            self.empilha(i)

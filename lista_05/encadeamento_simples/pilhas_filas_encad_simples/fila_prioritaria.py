@@ -6,6 +6,7 @@ from dataclasses import dataclass
 class Node:
     '''Um nó em um encadeamento'''
     item: str
+    prioridade: int
     prox: Node | None
 
 
@@ -18,21 +19,21 @@ class Fila:
     >>> f = Fila()
     >>> f.vazia()
     True
-    >>> f.enfileira('Amanda')
-    >>> f.enfileira('Fernando')
-    >>> f.enfileira('Márcia')
+    >>> f.enfileira('Amanda',5)
+    >>> f.enfileira('Fernando',2)
+    >>> f.enfileira('Márcia',4)
     >>> f.vazia()
     False
     >>> f.desenfileira()
     'Amanda'
-    >>> f.enfileira('Pedro')
-    >>> f.enfileira('Alberto')
+    >>> f.enfileira('Pedro',1)
+    >>> f.enfileira('Alberto',3)
     >>> while not f.vazia():
     ...     f.desenfileira()
-    'Fernando'
     'Márcia'
-    'Pedro'
     'Alberto'
+    'Fernando'
+    'Pedro'
     '''
 
     # Invariantes:
@@ -47,31 +48,34 @@ class Fila:
         self.inicio = None
         self.fim = None
 
-    def enfileira(self, item: str):
+    def enfileira(self, item: str, prioridade:int):
         '''
-        Adiciona *item* no final da fila.
+        Adiciona *item* no final da fila com uma prioridade de 1 a 5.
         '''
+        assert prioridade > 0 and prioridade <= 5
         if self.fim is None:
             assert self.inicio is None
-            self.inicio = Node(item, None)
+            self.inicio = Node(item, prioridade, None)
             self.fim = self.inicio
         else:
-            self.fim.prox = Node(item, None)
+            self.fim.prox = Node(item, prioridade, None)
             self.fim = self.fim.prox
 
     def desenfileira(self) -> str | None:
         '''
-        Remove e devolve o primeiro elemento da fila.
+        Remove e devolve o primeiro elemento com maior prioridade da fila.
 
         Requer que a fila não esteja vazia.
         '''
         if self.inicio is None:
             item = None
         else:
-            item = self.inicio.item
-            self.inicio = self.inicio.prox
-            if self.inicio is None:
-                self.fim = None
+            q = self.inicio
+            maior_pri = q
+            while q.prox is not None and q.prox.prioridade < 5:
+                if maior_pri.prox.prox.prioridade > maior_pri.prioridade:
+                    maior_pri = maior_pri.prox
+                q = q.prox
         return item
 
     def vazia(self) -> bool:
@@ -79,28 +83,3 @@ class Fila:
         Devolve True se a fila está vazia, False caso contrário.
         '''
         return self.inicio is None
-    
-    def junta(self, b: Fila):
-        '''
-        Move todos os elementos da fila *b* para o final da fila *self*.
-        Se a fila *self* estiver vazia, adiciona ela
-        Exemplos
-        >>> a = Fila()
-        >>> a.enfileira('a')
-        >>> a.enfileira('a')
-        >>> b = Fila()
-        >>> b.enfileira('b')
-        >>> b.enfileira('b')
-        >>> a.junta(b)
-        >>> while not a.vazia():
-        ...     a.desenfileira()
-        'a'
-        'a'
-        'b'
-        'b'
-        '''
-        if self.fim is None:
-            assert self.inicio is None
-            self.fim = b.inicio
-        else:
-            self.fim.prox = b.inicio
