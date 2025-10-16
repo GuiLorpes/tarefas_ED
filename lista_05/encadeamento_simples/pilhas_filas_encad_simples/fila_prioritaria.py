@@ -4,19 +4,22 @@ from dataclasses import dataclass
 
 @dataclass
 class Node:
-    '''Um nó em um encadeamento'''
+    '''
+    Um nó em um encadeamento com uma prioridade de 1 a 5, sendo 1 a menor 
+    prioridade e 5 a maior
+    '''
     item: str
     prioridade: int
     prox: Node | None
 
 
-class Fila:
+class FilaPriori:
     '''
     Uma coleção de strings que segue a política FIFO: o primeiro a ser inserido
     é o primeiro a ser removido.
 
     Exemplos
-    >>> f = Fila()
+    >>> f = FilaPriori()
     >>> f.vazia()
     True
     >>> f.enfileira('Amanda',5)
@@ -50,16 +53,29 @@ class Fila:
 
     def enfileira(self, item: str, prioridade:int):
         '''
-        Adiciona *item* no final da fila com uma prioridade de 1 a 5.
+        Adiciona *item* na fila de maneira ordenada de acordo com uma 
+        *prioridade* de 1 a 5.
         '''
-        assert prioridade > 0 and prioridade <= 5
+        assert prioridade > 0 and prioridade < 6
+        novo = Node(item, prioridade, None)
+        # Fila vazia
         if self.fim is None:
             assert self.inicio is None
-            self.inicio = Node(item, prioridade, None)
+            self.inicio = novo
             self.fim = self.inicio
+        # Fila não vazia
         else:
-            self.fim.prox = Node(item, prioridade, None)
-            self.fim = self.fim.prox
+            p = self.inicio
+            if prioridade > self.inicio.prioridade:
+                novo.prox = self.inicio
+                self.inicio = novo
+            else:
+                while p.prox is not None and p.prox.prioridade >= prioridade:
+                    p = p.prox
+                novo.prox = p.prox
+                p.prox = novo
+                if novo.prox is None:
+                    self.fim = novo
 
     def desenfileira(self) -> str | None:
         '''
@@ -70,12 +86,10 @@ class Fila:
         if self.inicio is None:
             item = None
         else:
-            q = self.inicio
-            maior_pri = q
-            while q.prox is not None and q.prox.prioridade < 5:
-                if maior_pri.prox.prox.prioridade > maior_pri.prioridade:
-                    maior_pri = maior_pri.prox
-                q = q.prox
+            item = self.inicio.item
+            self.inicio = self.inicio.prox
+            if self.inicio is None:
+                self.fim = None
         return item
 
     def vazia(self) -> bool:

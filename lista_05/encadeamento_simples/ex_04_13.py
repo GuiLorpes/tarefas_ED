@@ -134,19 +134,19 @@ def add_no(p: Node | None, item: int) -> Node:
         q.prox = Node(item, None)
     return p
 
-def encadeia_lista(lst: list[int]) -> Node:
+def encadeia_lista(lst: list[int]) -> Node | None:
     '''
     Cria um encadeamento a partir da *lst*
     Exemplos
     >>> encadeia_lista([1,2,3,4])
     Node(item=1, prox=Node(item=2, prox=Node(item=3, prox=Node(item=4, prox=None))))
     '''
-    p = Node(lst[0], None)
+    p = Node(0, None)
     q = p
-    for i in range (1, len(lst)):
-        q.prox = Node(lst[i], None)
+    for n in lst:
+        q.prox = Node(n, None)
         q = q.prox
-    return p
+    return p.prox
 
 def copia(p: Node | None) -> Node | None:
     '''
@@ -194,7 +194,7 @@ def duplica_nos(p: Node | None):
     if p is None:
         raise ValueError('não foi possivel duplicar pois não há elementos')
     else:
-        q = p
+        q: Node | None = p
         while q is not None:
             i = Node(q.item, q.prox)
             q.prox = i
