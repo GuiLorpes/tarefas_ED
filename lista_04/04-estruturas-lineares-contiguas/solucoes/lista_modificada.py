@@ -1,10 +1,16 @@
 from ed import array
 
+# Modificações
+# - adicionado o método __diminui, que é usado em remove
+
 # Capacidade inicial alocada para a lista
 CAPACIDADE_INICIAL = 4
 
 # Fator de crescimento quanto a lista precisa crescer
 FATOR_CRESCIMENTO = 2.0
+
+# Fator de decrescimento quanto a lista precisa diminuir
+FATOR_DECRESCIMENTO = 0.5
 
 class Lista:
     '''
@@ -164,9 +170,21 @@ class Lista:
         Traceback (most recent call last):
         ...
         ValueError: índice 2 fora da faixa
+        >>> lst = Lista()
+        >>> for i in range(1000):
+        ...     lst.insere(i, i)
+        >>> for i in range(998):
+        ...     lst.remove(2)
+        >>> lst.str()
+        '[0, 1]'
         '''
         if i < 0 or self.num_itens() <= i:
             raise ValueError(f'índice {i} fora da faixa')
+
+        # Se a capacidade é maior que 10 e apenas 25% está sendo utilizada
+        if len(self.valores) > 10 and self.num_itens() <= int(len(self.valores) // 4):
+            self.__diminui()
+
         for j in range(i + 1, self.tamanho):
             self.valores[j - 1] = self.valores[j]
         self.tamanho -= 1
@@ -217,9 +235,20 @@ class Lista:
         return s + ']'
 
     def __cresce(self):
-        # Aloca um novo arranjo para valores com a capacidade aumenta por *FATOR_CRESCIMENTO*
-        capacidade = int(len(self.valores) * FATOR_CRESCIMENTO)
+        self.__redimensiona(FATOR_CRESCIMENTO)
+
+    def __diminui(self):
+        self.__redimensiona(FATOR_DECRESCIMENTO)
+
+    def __redimensiona(self, fator: float):
+        # Aloca um novo arranjo para valores
+        capacidade = int(len(self.valores) * fator)
         valores = array(capacidade, 0)
+
+        # A nova capacidade não pode ser menor que o número de intes
+        assert self.num_itens() < capacidade
+
+        # Cópia os valores para o novo arranjo
         for i in range(self.num_itens()):
             valores[i] = self.valores[i]
         self.valores = valores

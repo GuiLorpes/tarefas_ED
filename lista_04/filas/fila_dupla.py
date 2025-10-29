@@ -39,48 +39,75 @@ class FilaDupla:
         Exemplos
         >>> f = FilaDupla(60)
         >>> f.appendRight('a')
-        >>> f.appendRight('b')
+        >>> f.appendLeft('b')
         >>> f.popRight()
         'a'
         '''
         if self.cheia():
             raise ValueError('Fila cheia!')
-        self.itens[self.fim] = item
-        self.tamanho += 1
-        if self.fim == self.capacidade:
-            self.fim = 0
-        else:
+        if self.vazia():
+            self.itens[self.fim] = item
+            self.inicio = self.capacidade
             self.fim += 1
-    
+        else:
+            self.itens[self.fim] = item
+            if self.fim == self.capacidade:
+                self.fim = 0
+            else:
+                self.fim += 1
+        self.tamanho += 1
+        
     def appendLeft(self, item: str):
-        ''' Adiciona um *item* no começo da fila '''
+        ''' 
+        Adiciona um *item* no começo da fila 
+        Exemplos
+        >>> f = FilaDupla(60)
+        >>> f.appendLeft('a')
+        >>> f.appendRight('b')
+        >>> f.popRight()
+        'b'
+        '''
         if self.cheia():
             raise ValueError('Fila cheia!')
-        if self.inicio == 0:
-            self.itens[self.capacidade] = item
+        if self.vazia():
+            self.itens[self.inicio] = item
             self.inicio = self.capacidade
+            self.fim += 1
         else:
             self.itens[self.inicio] = item
+            if self.inicio == 0:
+                self.inicio = self.capacidade
+            else:
+                self.inicio -= 1
         self.tamanho += 1
-        self.inicio -= 1
 
     def popRight(self) -> str:
         ''' Remove o ultimo item da fila '''
         if self.vazia():
             raise ValueError('Fila vazia!')
-        item = self.itens[self.fim]
         if self.fim == 0:
             self.fim = self.capacidade
         else:
             self.fim -= 1
+        item = self.itens[self.fim]
         self.tamanho -= 1
+        if self.tamanho == 0:
+            self.inicio = self.fim
         return item
 
     def popLeft(self) -> str:
         ''' Remove o primeiro item da fila '''
-        raise NotImplementedError
+        if self.vazia():
+            raise ValueError('Fila vazia!')
+        if self.inicio == self.capacidade:
+            self.inicio = 0
+        else: 
+            self.inicio += 1
+        item = self.itens[self.inicio]
         self.tamanho -= 1
-        self.inicio += 1
+        if self.tamanho == 0:
+            self.fim = self.inicio
+        return item
 
     def vazia(self) -> bool:
         ''' Verifica se a fila dupla está vazia '''
@@ -97,4 +124,3 @@ class FilaDupla:
     def esvazia(self):
         ''' Esvazia uma fila dupla '''
         self.fim = self.inicio
-    
