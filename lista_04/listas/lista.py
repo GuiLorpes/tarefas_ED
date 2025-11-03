@@ -109,13 +109,28 @@ class Lista:
         if i < 0 or i > self.num_itens():
             raise ValueError(f'indice {i} fora da faixa')
         indice_real = (self.inicio + i) % len(self.valores)
+        if indice_real < self.num_itens() // 2:
+            for j in range(self.inicio, indice_real):
+                self.valores[j-1] = self.valores[j]
+            if self.inicio == 0:
+                self.inicio = len(self.valores)
+            else:
+                self.inicio -= 1
+        else: # indice_real >= self.num_itens() // 2
+            for j in range (self.fim, indice_real, -1):
+                self.valores[j] = self.valores[j-1]
+            if self.fim == len(self.valores):
+                self.fim = 0
+            else:
+                self.fim += 1
+        self.tamanho += 1
         self.valores[indice_real] = n
     
     def popRight(self) -> int:
         ''' Remove o valor do fim da lista '''
         if self.vazia():
             raise ValueError('Fila vazia!')
-        if self.num_itens() - 1 <= len(self.valores()) * 0.25:
+        if self.num_itens() - 1 <= len(self.valores) * 0.25:
             raise ValueError('Não é possivel reduzir a baixo de 25% da lista')
         if self.fim == 0:
             self.fim = len(self.valores)
@@ -131,7 +146,7 @@ class Lista:
         ''' Remove o valor do inicio da lista '''
         if self.vazia():
             raise ValueError('Fila vazia!')
-        if self.num_itens() - 1 <= len(self.valores()) * 0.25:
+        if self.num_itens() - 1 <= len(self.valores) * 0.25:
             raise ValueError('Não é possivel reduzir a baixo de 25% da lista')
         if self.inicio == len(self.valores):
             self.inicio = 0
@@ -147,17 +162,38 @@ class Lista:
         ''' Remove um valor do indice *i* da lista '''
         if self.vazia():
             raise ValueError('Fila vazia!')
-        if self.num_itens() - 1 <= len(self.valores()) * 0.25:
+        if self.num_itens() - 1 <= len(self.valores) * 0.25:
             raise ValueError('Não é possivel reduzir a baixo de 25% da lista')
         if i < 0 or i > self.num_itens():
             raise ValueError(f'indice {i} fora da faixa')
         indice_real = (self.inicio + i) % len(self.valores)
+        item = self.valores[indice_real]
+        if indice_real < self.num_itens() // 2:
+            for j in range(indice_real - 1, self.inicio, -1):
+                self.valores[j] = self.valores[j-1]
+            if self.inicio == 0:
+                self.inicio = len(self.valores)
+            else:
+                self.inicio -= 1
+        else: # indice_real >= self.num_itens() // 2
+            for j in range (indice_real + 1, self.fim):
+                self.valores[j-1] = self.valores[j]
+            if self.fim == len(self.valores):
+                self.fim = 0
+            else:
+                self.fim += 1
+        return item
         
 
     
     def str(self) -> str:
         ''' Representa como uma string os elementos da lista '''
-        raise NotImplementedError
+        s = '['
+        if self.num_itens() != 0:
+            s += str(self.valores[self.inicio])
+            for i in range(1, self.num_itens()):
+                s += ', ' + str(self.valores[i])
+        return s + ']'
     
     def cheia(self) -> bool:
         ''' Verifica se a lista está cheia '''

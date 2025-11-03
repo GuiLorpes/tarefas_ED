@@ -1,0 +1,15 @@
+1) O que é uma função recursiva?
+    Uma função recursiva é quando uma função chama a si mesma de forma direta 
+    ou indireta.
+
+2) Qual é a relação entre decomposição de um problema e recursividade?
+    Para realizar uma função recursiva, é necessaria decompor um problema em 
+    partes menores.
+
+3) Qual a relação entre tipos com autorreferencia e funções recursivas
+    Um tipo com autorreferencia, referencia a uma versão de si mesmo menor, e 
+    uma função recursiva chama a ela mesma para resolver um problema menor.
+
+4) O que é uma recursão estrutural?
+    Uma recursão estrutural é quando não precisamos mudar a forma da função ao 
+    usar a recursividade.
