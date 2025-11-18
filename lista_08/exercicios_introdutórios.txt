@@ -1,0 +1,34 @@
+1) O que é uma arvore binária?
+    Uma arvore binária é um tipo de dados autoreferencial que possui uma raiz, 
+    sendo o primeiro elemento, e suas subarvores, podendo ter uma a direita e 
+    uma a esquerda, caso não tenha subarvores, ela é chamada de nó folha.
+
+2) Qual é o modelo de função para funções que processam árvores binárias?
+    Para funções que processam árvores binárias é necessário de funções recursivas
+
+3) O que é a altura de uma árvore binária?
+    A distância entre a raiz até o nó folha mais distante.
+
+4) Qual é a altura máxima de uma arvore binaria com n nós? Qual é a caracteristica
+das arvores binarias com altura maxima?
+    A altura máxima para uma arvore com n nós é (n - 1), todos os nós da arvore, 
+    exceto as folhasm têm apenas um filho.
+
+5) Qual é a altura minima de uma arvore binaria com n nós? Qual é a caracteristica
+das arvores binarias com altura mínima?
+    A altura minima para uma arvore com n nós é lg(n), ocorre quando todos os 
+    niveis, exceto talvez o ultimo nivel, estão cheios.
+
+6) O que é uma arvore binaria de busca?
+    Uma arvore binaria, porem as subarvores a sua esquerda são sempre numeros 
+    menores que a raiz, e a direita sempre numeros maiores, e as subarvores a 
+    direita e a esquerda tambem são arvores binarias de busca.
+
+7) Quais são os algoritmos de busca, inserção e remoção para ABBs? Qual é a 
+complexidade de tempo dos algoritmos?
+    Para a busca: verifica se o item é igual a chave, caso não for, se for 
+    maior, vai para a direita, caso contrário, para a esquerda.
+    Para inserção, ele verifica se o item é maior ou igual a raiz, caso for 
+    maior, verifica se é maior que o filho da raiz, caso for, vai procurando
+    até . . . preguiça de fazer . . .
+
