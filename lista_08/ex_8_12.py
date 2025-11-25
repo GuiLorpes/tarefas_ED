@@ -112,10 +112,51 @@ def eh_cheia(t: Arvore) -> bool:
     True
     '''
     if t is None:
-        return True
+        return False
     else:
-        return ((t.dir is not None and t.esq is not None) or \
-            (t.dir is None and t.esq is None)) and \
-                (eh_cheia(t.dir) and eh_cheia(t.esq))
+        return eh_cheia(t.dir) == eh_cheia(t.esq)
     
-# def
+def maior(t: Arvore) -> int | None:
+    '''
+    Procura em *t* o maior valor, caso a arvore for vazia, retorna None
+    Exemplo
+    >>> maior(None) is None
+    True
+    >>> t1 = Node(None, 7, Node(None, 1, None))
+    >>> t2 = Node(Node(None, 4, None), 8, t1)
+    >>> t3 = Node(Node(None, 5, None), 6, Node(None,9,None))
+    >>> t4 = Node(t2, 4, t3)
+
+              t4 4
+               /   \
+            /         \
+        t2 8           6 t3
+         /   \       /   \
+        4  t1 7     5     9
+               \
+                1
+
+    >>> maior(t4)
+    9
+    '''
+    if t is None:
+        return None
+    else:
+        Md = maior(t.dir)
+        Me = maior(t.esq)
+        if Md is None and Me is None:
+            return t.chave
+        elif Md is None and (Me is not None and t.chave <= Me):
+            return Me
+        elif Me is None and (Md is not None and t.chave <= Md):
+            return Md
+        elif Md is not None and Me is not None and Md > t.chave and Md >= Me:
+            return Md
+        elif Md is not None and Me is not None and Md > t.chave and Md <= Me:
+            return Me
+        elif Md is not None and Me is not None and Me > t.chave and Md <= Me:
+            return Me
+        elif Md is not None and Me is not None and Me > t.chave and Md >= Me:
+            return Md
+        else:
+            return t.chave

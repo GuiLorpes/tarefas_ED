@@ -1,0 +1,112 @@
+13) Desenhe a sequência de ABBs geradas pela inserção dos elementos 6, 1, 3, 7, 8,
+12, 9, 5, 4, 2, 16.
+
+                 6
+               /   \
+            /         \
+           1           7
+             \           \
+              3           8
+            /   \           \
+           2     5           12
+                /           /  \
+               4           9   16
+
+
+14) Partindo do resultado do exercício anterior, desenhe a sequência de ABBs 
+geradas pela remoção dos elementos 12, 1, 3, 6, 7, 8, 5, 9, 4, 2.
+
+    Inicio:
+                 6
+               /   \
+            /         \
+           1           7
+             \           \
+              3           8
+            /   \           \
+           2     5           12
+                /           /  \
+               4           9   16
+
+    Remove 12:
+                 6
+               /   \
+            /         \
+           1           7
+             \           \
+              3           8
+            /   \           \
+           2     5           16
+                /           /  
+               4           9   
+
+    Remove 1:
+                 6
+               /   \
+            /         \
+           3           7
+         /   \           \
+        2     5           8
+            /               \
+           4                 16
+                            /  
+                           9   
+
+    Remove 3:
+                 6
+               /   \
+            /         \
+           4           7
+         /   \           \
+        2     5           8
+                            \
+                             16
+                            /  
+                           9  
+
+    Remove 6:
+                 7
+               /   \
+            /         \
+           4           8
+         /   \           \
+        2     5           16
+                        /  
+                       9
+                             
+
+    Remove 7:
+                 8
+               /   \
+            /         \
+           4           16
+         /   \       /  
+        2     5     9
+                       
+    Remove 8:
+                 5
+               /   \
+            /         \
+           4           16
+         /           /  
+        2           9
+
+    Remove 9:
+                 5
+               /   \
+            /         \
+           4           16
+         /             
+        2           
+    
+    Remove 4:
+                 5
+               /   \
+            /         \
+           2           16
+
+    Remove 2:
+                 5
+                   \
+                      \
+                       16       
