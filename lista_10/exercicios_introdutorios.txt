@@ -1,0 +1,71 @@
+1) O que é endereçamento direto?
+    Um endereçamento direto cria um arranjo com poições para cada possivel chave
+    de entrada, onde armazenamos nessas poições os valores da chave
+
+2) O que é colisão?
+    Quando duas chaves ao fazer uma mapeação delas geram a mesma posição
+
+3) O que é uma função de dispersão? Qual é a principal caracteristica de uma 
+   boa função de dispersão? 
+    Uma função de dispersão é uma função que mapeia as chaves para suas 
+    respectivas posições. Uma boa função hash é aquela que gera poucas colisões
+
+4) O que são tabelas de dispersão?
+    É uma estrutura de dados que usa uma função hash pra enviar os itens de uma 
+    chave para a posição dada
+    
+5) Considerando uma tabela com m = 9 e a função de dispersão h(k) = k mod m, mostre como fica uma
+   tabela de dispersão após a inserção das chaves 5, 28, 19, 15, 20, 33, 12, 17 e da remoção das chaves
+   15, 5 e 12.
+    a) Use uma tabela com encadeamento
+      +----+
+    0 |    |
+      +----+    +----+    +----+
+    1 |    | -> | 28 | -> | 19 |
+      +----+    +----+    +----+
+    2 |    | -> | 20 |
+      +----+    +----+
+    3 |    | -> | 12 |
+      +----+    +----+
+    4 |    |
+      +----+    +----+
+    5 |    | -> |  5 |
+      +----+    +----+    +----+
+    6 |    | -> | 15 | -> | 33 |
+      +----+    +----+    +----+
+    7 |    |
+      +----+    +----+
+    8 |    | -> | 17 |
+      +----+    +----+
+
+    b) Use uma tabela com endereçamento aberto e sondagem linear
+      +----+
+    0 |    |
+      +----+ 
+    1 | 28 |
+      +----+
+    2 | 19 |
+      +----+
+    3 | 20 |
+      +----+
+    4 | 12 |
+      +----+
+    5 |  5 |
+      +----+
+    6 | 15 |
+      +----+
+    7 | 33 |
+      +----+
+    8 | 17 |
+      +----+
+
+6) Quais os cuidados devem ser tomados na implementação da remoção usando 
+   endereçamento aberto?
+    Ao remover do endereçamento aberto, caso consideramos o espaço que removemos
+    como None, ele vai ignorar os espaços após ele, e isso pode fazer com que 
+    ele não ache o elemento se estiver após.
+
+7) Explique o conceito de fator de carga e porque ele é importante.
+    O fator de carga é a média de itens por espaço do arranjo, ele é importante
+    pois dependendo de quanto ele vale, o computador gasta menos memoria, e é
+    rapido o suficiente para fazer operações em um bom tempo

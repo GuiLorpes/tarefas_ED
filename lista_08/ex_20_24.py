@@ -91,6 +91,10 @@ def inserir_it(t:Arvore, n: int) -> Arvore:
     '''
     Insere *n* em *t*, de forma que *t* se mantenha uma árvore de busca
     Exemplo
+    >>> a: Arvore = None
+    >>> inserir_it(a, 2)
+    >>> a
+    Node(esq=None, chave=2, dir=None)
     >>> t = lista_p_abb([1, 3, 4, 5, 6, 7, 8, 9])
         
                     6
@@ -116,21 +120,24 @@ def inserir_it(t:Arvore, n: int) -> Arvore:
         1                       10
     
     '''
-    i = t
-    while i is not None:
-        if n == i.chave:
-            return None
-        else:
-            if n > i.chave and i.dir is not None:
-                i = i.dir
-            elif n < i.chave and i.esq is not None:
-                i = i.esq
-            elif n > i.chave and i.dir is None:
-                i.dir = Node(None, n, None)
-                i = None
-            elif i.esq is None and n < i.chave:
-                i.esq = Node(None, n, None)
-                i = None
+    if t is None:
+        t = Node(None, n, None)
+    else:
+        i = t
+        while i is not None:
+            if n == i.chave:
+                return None
+            else:
+                if n > i.chave and i.dir is not None:
+                    i = i.dir
+                elif n < i.chave and i.esq is not None:
+                    i = i.esq
+                elif n > i.chave and i.dir is None:
+                    i.dir = Node(None, n, None)
+                    i = None
+                elif i.esq is None and n < i.chave:
+                    i.esq = Node(None, n, None)
+                    i = None
     return t
 
 def remover_it(t:Arvore, n: int) -> Arvore:
