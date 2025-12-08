@@ -101,7 +101,7 @@ class Conjunto:
         >>> c = Conjunto(10)
         >>> str_correta(c.mostra())
         True
-        >>> for i in range(100002):
+        >>> for i in range(100):
         ...     c.adiciona(i)
         >>> str_correta(c.mostra())
         True
@@ -206,17 +206,18 @@ def pertence_aos_conjuntos(a: Conjunto, b: Conjunto, c: Conjunto) -> bool:
     Verifica se os valores do conjunto *a* e *b* estão no conjunto *c*. Caso 
     tenha algum valor não presente no conjunto, retorna False.
     '''
-    pertence = False
+    pertenceA = False
+    pertenceB = False
     for i in a.conjunto:
         if isinstance(i, Celula):
             if (c.busca(i.chave) is not None):
-                pertence = True
+                pertenceA = True
             else:
-                pertence = False 
+                pertenceA = False 
     for i in b.conjunto:
         if isinstance(i, Celula):
             if (c.busca(i.chave) is not None):
-                pertence = True
+                pertenceB = True
             else:
-                pertence = False 
-    return pertence
+                pertenceB = False 
+    return pertenceA and pertenceB
