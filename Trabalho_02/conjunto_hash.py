@@ -203,14 +203,19 @@ def str_correta(s: str) -> bool:
 
 def pertence_aos_conjuntos(a: Conjunto, b: Conjunto, c: Conjunto) -> bool:
     ''' 
-    Verifica se os valores do conjunto *c* estão pelo menos em um dos conjuntos
-    *a* ou *b*. Caso tenha algum valor não presente nesses dois conjuntos, 
-    retorna False.
+    Verifica se os valores do conjunto *a* e *b* estão no conjunto *c*. Caso 
+    tenha algum valor não presente no conjunto, retorna False.
     '''
     pertence = False
-    for i in c.conjunto:
+    for i in a.conjunto:
         if isinstance(i, Celula):
-            if (a.busca(i.chave) is not None) or (b.busca(i.chave) is not None):
+            if (c.busca(i.chave) is not None):
+                pertence = True
+            else:
+                pertence = False 
+    for i in b.conjunto:
+        if isinstance(i, Celula):
+            if (c.busca(i.chave) is not None):
                 pertence = True
             else:
                 pertence = False 
